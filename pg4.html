@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Park</title>
+  
+    <link rel="stylesheet" href="pg4.css" type="text/css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+        <div class="logo">
+                <a class="logo-text">Find a Spot</a>
+        </div>
+        </div>
+
+    </div>
+    <section class="hero">
+    <div class="hero container">
+        <div class="column-left">
+            <!--<form action="">
+                
+                <input class="mns" type="text" placeholder="Location">
+                <a href="sec.html" ><input class="sub-btn1" type="button"value="  Search  "></a>
+                
+                
+            </form>-->
+            <br>
+            <br>
+
+            <h3>Current coordinates.</h3>
+
+             <br>
+             <br>
+             
+                 <div id="map"></div>
+
+
+
+                    <script>
+
+                      
+
+                    </script>
+                             
+
+                     
+    </div>
+
+        <div class="column-right">
+            <h4 >Parking lot availability:</h4>
+            <h4 id="message">  </h4>
+            
+            <img src="slot.jpeg.jpg" alt="illustration" class="hero-image">
+
+             <select id="userInput" class="mns" placeholder="Select Location" >
+             <option value="1">Aries Plex SL cinemas</option>
+             <option value="2">Trivandrum Central Railway Station</option>
+             <option value="3">Multi Level Car Parking,Thampanoor</option>
+     
+              </select>
+            <button onclick="myfunction()"> Submit </button>
+         
+            
+            <style>
+                 body{
+                     background-color: #feeab6;
+                                   text-align: center;
+                                         font-family: cursive;
+                                color: black;
+
+
+                         }
+                </style>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js">
+                </script>
+               
+
+    <script>
+        let lat_def=0
+        let lon_def=0
+         navigator.geolocation.getCurrentPosition(position => {
+                        const{ latitude , longitude }=position.coords;
+                        lat_def=latitude;
+                        lon_def=longitude;
+                        map.innerHTML= '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.515229791446!2d76.90411317323303!3d8.546351896360884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bec807c6129f%3A0x51323b3b5bd63d88!2sCETAA%20Hall!5e0!3m2!1sen!2sin!4v1687285311478!5m2!1sen!2sin" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+                     })
+        
+        function myfunction()
+        {
+        
+           
+           let userInput = document.querySelector("#userInput");
+           let message = document.querySelector("#message");
+           let k=parseInt(userInput.value);
+           switch(k)
+           {
+            case 1: window.location.href="pg5.html";
+                 
+                    break;
+            case 2: window.location.href = "pg6.html";
+                    break;
+            case 3: window.location.href = "pg7.html";
+                    break;
+           }
+           
+
+           
+        }
+        function randomNumber(min, max) {
+    return Math.ceil( Math.random() * (max - min) + min); 
+
+}
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return parseFloat(d).toFixed(2);
+  }
+  
+  function deg2rad(deg) {
+    return deg * (Math.PI/180)
+  }
+  </script>
+
+        </div>
+    </div>
+    </section>
+        
+</body>
+</html>

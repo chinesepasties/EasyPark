@@ -1,0 +1,156 @@
+*{
+    box-sizing: border-box;
+    margin-left :1rem;
+    padding:0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    height: 90%;
+    width:98%;
+    background:#feeab6;
+
+}
+.container{
+    
+    justify-content: flex-start;
+    align-items: center;
+    padding: initial;
+    display: flex;
+    height: 70px;
+    width:100%;
+
+}
+.header{
+    height: 70px;
+    width: 100%;
+   padding-top: 10px;
+}
+.logo{
+   
+    color:#5C4033;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: cursive;
+    
+   
+
+}
+
+.logo-text{
+    text-decoration: none;
+    color:#5C4033;
+    
+    font-family:cursive;
+    padding: 0 ;
+
+}
+.hero{
+    background:ffee6a;
+
+}
+.hero-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 70%;
+    padding: 0;
+}
+.column-left{
+    margin-top:30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+      color:#5C4033;
+    
+    padding-left: 2rem ;
+
+
+}
+.column-left h1{
+    margin-bottom: 1 rem;
+    font-size:40px;
+    font-weight: bold;
+}
+.column-right{
+    display: inline;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color:#5C4033;
+  
+    padding: 0;
+}
+.column-right h1{
+   
+    font-size:40px;
+    font-weight: bold;
+}
+.hero-image{
+   
+    
+    width:225px;
+    height:230px;
+}
+
+    
+button{
+    
+    padding: 0.8rem 0.8rem;
+    font-size: 16px;
+    border:#000;
+    color: white;
+    background: brown;
+    cursor:pointer;
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+}
+button:hover{
+    background:white;
+    color:#000;
+
+}
+@media only screen and (max-width: 400px)
+{
+    .body{
+        height: 90%;
+        width:90%;
+    }
+    
+}
+.mns{
+    margin-top: 40px;
+    
+    padding: 0.5rem 0.5rem;
+    height:fit-content;
+    width:fit-content;
+    border-radius: 5px;
+    font-size: 20px;
+    border-color: darkred;
+    border: 2px ;
+}
+
+.sub-btn1{
+    margin-top: 30px;
+    padding: 0.5rem 0.5rem;
+    font-size: 16px;
+    border:#000;
+    color: white;
+    background: brown;
+    cursor:pointer;
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+
+}
+.sub-btn1:hover{
+    background: white;
+    color:#000;
+}
+iframe{
+    height: 330px;
+    width: 400px;
+}
+#userInput{
+    border: #000;
+    border-radius: 5px;
+    background-color: #feeab6;
+}

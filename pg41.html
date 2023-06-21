@@ -1,0 +1,336 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Easy Park</title>
+        <link rel="stylesheet" href="pg4.css" type="text/css">
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+            <div class="logo">
+                    <a class="logo-text">Find a Spot</a>
+            </div>
+            </div>
+
+        </div>
+        <section class="hero">
+        <div class="hero container">
+            <div class="column-left">
+                <!--<form action="">
+                    
+                    <input class="mns" type="text" placeholder="Location">
+                    <a href="sec.html" ><input class="sub-btn1" type="button"value="  Search  "></a>
+                    
+                    
+                </form>-->
+                <br>
+                <br>
+
+                <h3>Current coordinates.</h3>
+
+                <br>
+                <br>
+                
+                    <div id="map"></div>
+
+
+
+                        <script>
+
+                        
+
+                        </script>
+                                
+
+                        
+        </div>
+
+            <div class="column-right">
+                <h4 >Parking lot availability:</h4>
+                <h4 id="message">  </h4>
+            
+
+                <select id="userInput" class="mns" placeholder="Select Location" >
+                <option value="0">Aries Plex SL cinemas</option>
+                <option value="1">Trivandrum Central Railway Station</option>
+                <option value="2">Multi Level Car Parking,Thampanoor</option>
+        
+                </select>
+                <button onclick="myfunction()"> Submit </button>
+                
+                <style>
+                    body{
+                        background-color: #feeab6;
+                                    text-align: center;
+                                            font-family: cursive;
+                                    color: black;
+
+
+                            }
+                    </style>
+
+        <script>
+            let lat_def=0
+            let lon_def=0
+            navigator.geolocation.getCurrentPosition(position => {
+                            const{ latitude , longitude }=position.coords;
+                            lat_def=latitude;
+                            lon_def=longitude;
+                            map.innerHTML= '<iframe width="500" height="400" src="https://maps.google.com/maps?q='+latitude+','+longitude+'&amp;z=15&amp;output=embed"></iframe>';
+                        })
+            
+            function myfunction()
+            {
+            
+            let userInput = document.querySelector("#userInput");
+            let message = document.querySelector("#message");
+            let selected = null;
+            let k=parseInt(userInput.value);
+            let lat=parseFloat(lat_def)
+            let lon=parseFloat(lon_def)
+            let latm=8.488596662952402;
+            let lonm=76.94635793783142;
+            let latm_i=8.48705780657467;
+            let lonm_i=76.95379611759726;
+            let latm_j=8.488421477049586;
+            let lonm_j=76.95216436058122;
+            let dis=0
+            let dis1=0
+            let dis2=0
+            switch(k)
+            {
+                case 0:
+                    var m=randomNumber(120, 140)
+                    if(m>=130){
+                        var m_i=randomNumber(136, 160)
+                        var m_j=randomNumber(30, 50)
+                        
+                        if(m_i < 150)
+                        {
+                            
+                            if(m_j < 40)
+                            {
+                            dis1=getDistanceFromLatLonInKm(lat, lon, latm_i, lonm_i) ;
+                            dis2=getDistanceFromLatLonInKm(lat, lon, latm_j, lonm_j);
+                            if(dis1 < dis2){
+                                message.innerHTML= "The nearest parking lot available is at Trivandrum Central Railway Station at a distance of " +dis1 +" kms with "+parseInt(150-m_i)+" slots vacant ";
+                                selected = 1;
+                            }
+                            else{
+                                message.innerHTML="The nearest parking lot available is at Multi level parking Facility at a distance of " +dis2 +" kms with "+parseInt(40-m_j)+" slots vacant ";
+                                selected =2;
+                            }
+                                
+                            }
+                            else
+                            {
+                                dis1=getDistanceFromLatLonInKm(lat, lon, latm_i, lonm_i) ;
+                                message.innerHTML= "The nearest parking lot available is at Trivandrum Central Railway Station at a distance of " +dis1 +" kms with "+parseInt(150-m_i)+" slots vacant ";
+
+                                selected = 1;
+                            }
+                        }
+                        else
+                        {
+                            if(m_j>40)
+                            {
+                                message.innerHTML= "Maximum  capacity reached at all parking lots please wait a few minutes and refresh website" ;
+                                selected = null;
+                            }
+                            else{
+                                dis2=getDistanceFromLatLonInKm(lat, lon, latm_j, lonm_j);
+                                message.innerHTML="The nearest parking lot available is at Multi level parking Facility at a distance of " +dis2 +" kms with "+parseInt(40-m_j)+" slots vacant ";
+                            selected = 2;
+                            }
+                        }
+                        
+                        
+                    }
+                    else{
+
+                        dis=getDistanceFromLatLonInKm(lat, lon, latm, lonm);
+
+                        message.innerHTML="The Aries Plex parking facility is available at a distance of  " +dis +" kms with "+parseInt(130-m)+" slots vacant ";
+                        selected = 0;
+
+                    }
+                        break;
+                case 1: var m_i=randomNumber(136, 160)
+                    if(m_i>=150){
+                        
+                        var m=randomNumber(120, 140)
+                        var m_j=randomNumber(30, 50)
+                        
+                        if(m < 130)
+                        {
+                            
+                            if(m_j < 40)
+                            {
+                            dis=getDistanceFromLatLonInKm(lat, lon, latm, lonm) ;
+                            dis2=getDistanceFromLatLonInKm(lat, lon, latm_j, lonm_j);
+                            if(dis < dis2){
+                                message.innerHTML= "The nearest parking lot available is at Aries Plex SL Cinemas at a distance of " +dis +"kms with "+parseInt(130-m)+" slots vacant ";
+                        selected = 0;
+                                
+                            }
+                            else{
+                                message.innerHTML="The nearest parking lot available is at Multi level parking Facility at a distance of " +dis2 +"kms with "+parseInt(40-m_j)+" slots vacant ";
+                        selected = 2;
+                            }
+                                
+                            }
+                            else
+                            {
+                                dis=getDistanceFromLatLonInKm(lat, lon, latm, lonm) ;
+                                message.innerHTML= "The nearest parking lot available is at Aries Plex SL Cinemas at a distance of " +dis +"kms with "+parseInt(130-m)+" slots vacant ";
+                                selected = 0;
+
+                                
+                            }
+                        }
+                        else
+                        {
+                            if(m_j>40)
+                            {
+                                message.innerHTML= "Maximum  capacity reached at all parking lots please wait a few minutes and refresh website" ;
+                        selected = null;
+                            
+                            }
+                            else{
+                                dis2=getDistanceFromLatLonInKm(lat, lon, latm_j, lonm_j);
+                                message.innerHTML="The nearest parking lot available is at Multi level parking Facility at a distance of " +dis2 +" kms with "+parseInt(40-m_j)+" slots vacant ";
+                        selected =2;
+                            
+                            }
+                        }
+                        
+                        
+                    }
+                    else{
+
+                        dis1 =getDistanceFromLatLonInKm(lat, lon, latm_i, lonm_i);
+
+                        message.innerHTML="The Trivandrum Central Railway Station parking facility is available at a distance of  " +dis1 +" kms with "+parseInt(150-m_i)+" slots vacant ";
+                        selected = 1;
+
+
+                    }
+                        break;
+                case 2: var m_j=randomNumber(30, 50)
+                    if(m_j>=40){
+
+                        var m_i=randomNumber(136, 160)
+                        var m=randomNumber(120, 140)
+                        
+                        
+                        if(m < 130)
+                        {
+                            
+                            if(m_i < 150)
+                            {
+                            dis=getDistanceFromLatLonInKm(lat, lon, latm, lonm) ;
+                            dis1=getDistanceFromLatLonInKm(lat, lon, latm_i, lonm_i);
+                            if(dis < dis1){
+                                message.innerHTML= "The nearest parking lot available is at Aries Plex SL Cinemas at a distance of " +dis +"kms with "+parseInt(130-m)+" slots vacant ";
+                        selected = 0;
+                                
+                            }
+                            else{
+                                message.innerHTML="The nearest parking lot available is at Trivandrum Central Railway Station Parking  at a distance of " +dis1 +"kms with "+parseInt(150-m_i)+" slots vacant ";
+                        selected = 1;
+                                
+                            }
+                                
+                            }
+                            else
+                            {
+                                dis=getDistanceFromLatLonInKm(lat, lon, latm, lonm) ;
+                                message.innerHTML= "The nearest parking lot available is at Aries Plex SL Cinemas at a distance of " +dis +"kms with "+parseInt(130-m)+" slots vacant ";
+                                selected = 0;
+
+                                
+                            }
+                        }
+                        else
+                        {
+                            if(m_i>150)
+                            {
+                                message.innerHTML= "Maximum  capacity reached at all parking lots please wait a few minutes and refresh website" ;
+                        selected = null;
+                                
+                            }
+                            else{
+                                dis1=getDistanceFromLatLonInKm(lat, lon, latm_i, lonm_i);
+                                message.innerHTML="The nearest parking lot available is at Trivandrum Central Railway Station Parking  at a distance of " +dis1 +"kms with "+parseInt(150-m_i)+" slots vacant ";
+                        selected = 1;
+                            
+                            }
+                        }
+                        
+                        
+                    }
+                    else{
+
+                        dis2 =getDistanceFromLatLonInKm(lat, lon, latm_j, lonm_j);
+
+                        message.innerHTML="The Multi level Car parking facility,Thampanoor  is available at a distance of  " +dis2 +" kms with "+parseInt(40-m_j)+" slots vacant ";
+                        selected = 2;
+
+
+                    }
+                        break;
+            }
+            
+
+            if(selected !==null){
+                if(selected===0){
+                map.innerHTML = `<iframe width="500" height="400" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCkUM5Xxkb3djb6IRmNwGbFhGVXTSkDIOE&origin=${lat_def}, ${lon_def}&destination=${latm}, ${lonm}"></iframe>`;
+
+                    }
+                    else if(selected ===1)
+                    {
+                map.innerHTML = `<iframe width="500" height="400" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCkUM5Xxkb3djb6IRmNwGbFhGVXTSkDIOE&origin=${lat_def}, ${lon_def}&destination=${latm_i}, ${lonm_i}"></iframe>`;
+
+                    }
+                    else{
+                map.innerHTML = `<iframe width="500" height="400" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCkUM5Xxkb3djb6IRmNwGbFhGVXTSkDIOE&origin=${lat_def}, ${lon_def}&destination=${latm_j}, ${lonm_j}"></iframe>`;
+
+                    }
+                }
+                else{
+                    map.innerHTML= '<iframe width="500" height="400" src="https://maps.google.com/maps?q='+latitude+','+longitude+'&amp;z=15&amp;output=embed"></iframe>';
+                }
+            }
+            function randomNumber(min, max) {
+        return Math.ceil( Math.random() * (max - min) + min); 
+
+    }
+    function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = deg2rad(lat2-lat1);  // deg2rad below
+        var dLon = deg2rad(lon2-lon1); 
+        var a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2)
+        ; 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c; // Distance in km
+        return parseFloat(d).toFixed(2);
+    }
+    
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
+    </script>
+
+            </div>
+        </div>
+        </section>
+            
+    </body>
+    </html>

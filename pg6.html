@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pg5.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+                  
+        setInterval(function() {
+          location.reload();
+        }, 20000);
+      </script>
+    <title>    EASY PARK        </title>
+</head>
+<body>
+    
+        <header>
+          <h1>Parking Details for Trivandrum Central Railway Station</h1>
+        </header>
+      
+        <div class="container">
+          <div class="left-column">
+            <h2>Parking availability:</h2>
+            <script>
+            var lat1 = [8.488596662952402, 8.48705780657467, 8.488421477049586];
+           var lon1 = [76.94635793783142, 76.95379611759726, 76.95216436058122];
+          var dis = [];
+         const lat = 8.5464587354769;
+           const lon = 76.90671249620067;
+         for (let i = 0; i < 3; i++) {
+              dis[i] = getDistanceFromLatLonInKm(lat, lon, lat1[i], lon1[i]);
+           }
+           function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radius of the earth in kilometers
+  const dLat = degToRad(lat2 - lat1);
+  const dLon = degToRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(degToRad(lat1)) *
+      Math.cos(degToRad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c;
+   return parseFloat(distance).toFixed(2);;
+}
+
+function degToRad(deg) {
+  return deg * (Math.PI / 180);
+}
+     
+           var count=[130-randomNumber(120, 140),150-randomNumber(136, 160),40-randomNumber(30, 50)];
+
+           var place=["Aries PLex","Trivandrum Central Railway Station","Multi level car parking ,Thampanoor"] ;   
+           var weight=[];
+         
+         
+           for(let i=0;i<3;i++)
+                  {
+                    if(i==1)
+                    {
+                        weight[i]=null;
+                        continue;
+                    }
+                     if(count[i]>0&&count[i]<=3)
+                     {
+                        weight[i]=0.6;
+                     }
+                     else if(count[i]>=4&&count[i]<=6)
+                     {
+                        weight[i]=0.4;
+                     }
+                     else if(count[i]>=7&&count[i]<=9)
+                     {
+                        weight[i]=0.2;
+                     }
+                     else if(count[i]>=10)
+                     {
+                        weight[i]=0.0;
+                     }
+                     else
+                     {
+                        weight[i]=null
+                       continue;
+                     }
+                  }  
+
+                  for(let i=0;i<3;i++)
+                  {
+                    if(weight[i]!=null)
+                    {
+                    weight[i]=Math.sqrt(Math.pow(dis[i],2)+Math.pow(weight[i],2));
+                    }
+                  } 
+                  var dictionary = {};
+
+                 
+                for (var i = 0; i < 3; i++) {
+                 dictionary[place[i]] = weight[i];
+                 }
+
+                 function deleteNullValues(dictionary) {
+            for (var key in dictionary) {
+                if (dictionary[key] === null) {
+                    delete dictionary[key];
+                }
+            }
+        }
+        function sortDictionary(dictionary) {
+            var sortedKeys = Object.keys(dictionary).sort(function(a, b) {
+                return dictionary[a] - dictionary[b];
+            });
+
+            return sortedKeys;
+        }
+
+        deleteNullValues(dictionary);
+
+        var sortedKeys = sortDictionary(dictionary);
+        function Index() {
+        var input = m;
+      
+
+        var index = place.indexOf(input);
+
+          return(index);
+         
+        
+        }
+      var selected=null;
+      m=sortedKeys[0];
+          
+         document.addEventListener('DOMContentLoaded', function() {
+          if(count[1]>0)
+           { 
+            selected=0;
+            document.getElementById('result').textContent ="The Trivandrum Central Railway Station parking facility is available at a distance of  " +dis[1] +" kms with "+parseInt(count[1])+" slots vacant ";
+            map.innerHTML = `<iframe width="500" height="400" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCkUM5Xxkb3djb6IRmNwGbFhGVXTSkDIOE&origin=${lat}, ${lon}&destination=${lat1[0]}, ${lon1[0]}"></iframe>`;
+           }
+         else if (Object.keys(dictionary).length === 0) {
+          selected=null;
+          document.getElementById('result').textContent = "No parking slots available anywhere ..the slots will be refreshed soon";
+         map.innerHTML= '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.515229791446!2d76.90411317323303!3d8.546351896360884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bec807c6129f%3A0x51323b3b5bd63d88!2sCETAA%20Hall!5e0!3m2!1sen!2sin!4v1687285311478!5m2!1sen!2sin" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';           
+
+         }
+        
+         else{
+          selected=Index();
+         document.getElementById('result').textContent = " Parking is available at "+sortedKeys[0]+" at a distance of "+dis[Index()]+" kms with "+count[Index()]+" slots available";
+         map.innerHTML = `<iframe width="500" height="400" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCkUM5Xxkb3djb6IRmNwGbFhGVXTSkDIOE&origin=${lat}, ${lon}&destination=${lat1[Index()]}, ${lon1[Index()]}"></iframe>`;
+         //'<iframe width="500" height="400" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyCkUM5Xxkb3djb6IRmNwGbFhGVXTSkDIOE&origin=${lat}, ${lon}&destination=${lat1[INdex()]}, ${lon1[Index()]}"></iframe>';
+
+        }
+    });
+      
+        
+        function randomNumber(min, max) {
+    return Math.ceil( Math.random() * (max - min) + min); 
+
+}
+
+</script>
+      
+        
+            <div id="result"></div>     
+            <div id="map">
+            </div>
+          </div>
+      
+          <div class="right-column">
+            <img src="2.png" class="Logo">
+          </div>
+        </div>
+      
+        <footer>
+            <script>
+            function exitWebpage() {
+                window.close(); // Close the current window/tab
+              }
+            </script>
+            <button onclick="exitWebpage()">Exit</button>
+            <p>&copy; 2023 Easy Park. All rights reserved.</p>
+        </footer>
+     
+      </html>
+</body>
+</html>
